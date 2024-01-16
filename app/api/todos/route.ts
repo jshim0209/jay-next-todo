@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
   const body = await await request.json();
   const validation = schema.safeParse(body);
   if (!validation.success)
-    return NextResponse.json(validation.error.errors, { status: 400 });
+    return NextResponse.json(validation.error.errors, { status: 422 });
 
   const todoCreated = await prisma.todo.create({
     data: {
@@ -23,5 +23,5 @@ export async function POST(request: NextRequest) {
       dateCreated: new Date(),
     },
   });
-  return NextResponse.json(todoCreated, { status: 200 });
+  return NextResponse.json(todoCreated, { status: 201 });
 }
